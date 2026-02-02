@@ -1,0 +1,16 @@
+.container{
+    margin: 0px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+}
+
+.container h1{
+    color: #304ffe;
+    margin-bottom: 20px;
+}
+.container p{
+    color: grey;
+    font-size: 14px;
+}
