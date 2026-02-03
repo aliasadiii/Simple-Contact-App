@@ -1,0 +1,21 @@
+
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(63, 62, 62);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.searchContainer{
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.toolsContainer{
+    display: flex;
+    gap: 20px;
+}
+
