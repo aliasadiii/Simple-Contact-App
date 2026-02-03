@@ -19,3 +19,24 @@
     gap: 20px;
 }
 
+.toolsContainer button{
+    height: 26px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #304ffe;
+    color: #fff;
+}
+
+.searchContainer input{
+    height: 26px;
+    border: 2px solid #eaeaea;
+    border-radius: 5px;
+    color: #304ffe;
+    outline: none;
+}
+
+.searchContainer p{
+    color: #fe8230;
+}

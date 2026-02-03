@@ -20,11 +20,11 @@ function ContactBar() {
         {!addStatus 
             ?(<div className={styles.container}>
                 <div className={styles.searchContainer}>
-                    <h4>search in contact :</h4>
+                    <p>search in contact :</p>
                     <input type="text" />
                 </div>
                 <div className={styles.toolsContainer}>
-                    <button onClick={addHandler}>Add</button>
+                    <button onClick={addHandler}>Add Contact</button>
                     <button onClick={selectHandler}>Select</button>
                 </div>
             </div>) 

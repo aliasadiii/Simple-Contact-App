@@ -78,7 +78,8 @@ function AddContact({setAddStatus}) {
             job:"",
             phone:"",
         })
-        // console.log(contact,contacts)
+        
+        console.log(contact,contacts)
         // console.log(randomID)
     }
 
