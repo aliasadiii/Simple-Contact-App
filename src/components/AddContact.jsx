@@ -4,10 +4,9 @@ import inputs from '../constants/inputs.js'
 
 import styles from "./AddContact.module.css"
 
-function AddContact({setAddStatus}) {
+function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage}) {
 
-    const [contacts,setContacts]=useState([])
-
+    
     const [contact , setContact]=useState({
         id:"",
         fullName:"",
@@ -23,6 +22,8 @@ function AddContact({setAddStatus}) {
     })
 
     const [alert,setAlert]=useState("")
+
+
 
     const changeHandler = (event)=>{
         const value = event.target.value
@@ -70,18 +71,22 @@ function AddContact({setAddStatus}) {
         // setContact(contact=> ({...contact , id:randomID}) ) it's not working!!
         const newContact={...contact , id: `${randomID}`}
 
-        setContacts(contacts => [...contacts , newContact])
+        setContacts(contacts => [...contacts , newContact]);
+        
+        saveToLocalStorage(contacts);
+
         setContact({
             id:"",
             fullName:"",
             email:"",
             job:"",
             phone:"",
-        })
+        });
         
-        console.log(contact,contacts)
+        //console.log(contact,contacts)
         // console.log(randomID)
     }
+        //console.log(contacts)
 
     const homeHandler = ()=>{
         setAddStatus(addStatus=>!addStatus)
