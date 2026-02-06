@@ -1,8 +1,13 @@
 .container{
     width: 100%;
-    margin-bottom:100px ;
+    margin-top:30px ;
+    
+}
+
+.container h2{
 
 }
+
 .container h3{
     color: #304ffe;
     font-size: 1.5rem;

@@ -4,16 +4,13 @@ import inputs from '../constants/inputs.js'
 
 import styles from "./AddContact.module.css"
 
-function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage}) {
+function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage , setEdit , edit , setSaveStatus}) {
+
+    // console.log(Object.keys(edit).length)
+    console.log(edit.id)
 
     
-    const [contact , setContact]=useState({
-        id:"",
-        fullName:"",
-        email:"",
-        job:"",
-        phone:"",
-    })
+    const [contact , setContact]=useState(edit)
 
     const [validation , setValidation]=useState({
         nameValidation: true,
@@ -69,11 +66,23 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage}
 
         const randomID=Math.floor(Math.random()*10000)
         // setContact(contact=> ({...contact , id:randomID}) ) it's not working!!
-        const newContact={...contact , id: `${randomID}`}
 
-        setContacts(contacts => [...contacts , newContact]);
+        if(!Object.keys(edit).length){
+            const newContact={...contact , id: `${randomID}`}
+
+            setContacts(contacts => [...contacts , newContact]); 
+        }else{
+            const editedContact = {...contact , id: edit.id}
+            const editedContacts =  contacts.filter(contact => contact.id!==edit.id)
+
+            setContacts(contacts => [...editedContacts , editedContact]); 
+
+            setAddStatus((addStatus)=>!addStatus)
+        }
         
-        saveToLocalStorage(contacts);
+        setSaveStatus(saveStatus=>!saveStatus)
+
+        // saveToLocalStorage(contacts);
 
         setContact({
             id:"",
@@ -83,13 +92,16 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage}
             phone:"",
         });
         
-        //console.log(contact,contacts)
-        // console.log(randomID)
+        if(Object.keys(edit).length)(
+            setEdit((edit)=>edit={})
+        )
     }
-        //console.log(contacts)
 
     const homeHandler = ()=>{
         setAddStatus(addStatus=>!addStatus)
+        if(Object.keys(edit).length)(
+            setEdit((edit)=>edit={})
+        )
     }
 
   return (
@@ -113,7 +125,7 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage}
                     <div className={styles.alert}>{(input.name==="phone" && !validation.phoneValidation? <p>enter a valid Phone Number</p> : "") }</div>
                 </div>
             )}
-            <button onClick={addHandler}>Add Contact</button>
+            <button onClick={addHandler}>{Object.keys(edit).length ? "Edit Contact" : "Add Contact"}</button>
             <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
         </div>
 

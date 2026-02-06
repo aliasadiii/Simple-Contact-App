@@ -4,11 +4,14 @@ import ContactItem from './ContactItem'
 
 import styles from "./ContactList.module.css"
 
-function ContactList({contacts , saveToLocalStorage , searchRes , searchValue}) {
+function ContactList({contacts , setContacts , saveToLocalStorage , searchRes , searchValue , setAddStatus , edit , setEdit , setSaveStatus}) {
     // console.log(contacts);
     const singleDeleteHandler = (id)=>{
         const newContact = contacts.filter((contact)=>contact.id!==id)
-        saveToLocalStorage(newContact)
+        setContacts(newContact)
+        setSaveStatus(saveStatus=>!saveStatus)
+
+        // saveToLocalStorage(newContact)
     }
 
   return (
@@ -20,7 +23,14 @@ function ContactList({contacts , saveToLocalStorage , searchRes , searchValue}) 
                 <ul className={styles.contacts}>
                     {
                        (searchRes.length || searchValue ? searchRes : contacts).map((contact)=>
-                        <ContactItem key={contact.id} data={contact} singleDeleteHandler={singleDeleteHandler}/>
+                        <ContactItem 
+                            key={contact.id} 
+                            data={contact} 
+                            singleDeleteHandler={singleDeleteHandler} 
+                            setAddStatus={setAddStatus}
+                            setEdit={setEdit}
+                            edit={edit}
+                        />
                     )
                     }
                     

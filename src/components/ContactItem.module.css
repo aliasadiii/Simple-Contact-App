@@ -2,42 +2,61 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f5f5f5;
-    color: #6b6b6f;
+    background-color: #e0e0e0;
+    color: #242424;
     padding: 10px 20px;
     margin: 15px;
     border-radius: 10px;
 }
 
 .item p{
+    width: 30%;
     flex-basis: 0;
     flex-grow: 1.5;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-/* .item span{
+.mailBox{
     display: inline-block;
-    font-size: 1.3rem;
-    text-align: center;
-    margin-right: 10px;
-    background-color: #fff;
+    margin-right: 7px;
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.item input {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+.buttonBox{
+    width: 15%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.item img{
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.moreBtn{
+    width: 40px;
+    height: 40px;
+}
+
+.deleteBtn{
     width: 35px;
     height: 35px;
-    line-height: 35px;
-    border-radius: 50%;
-} */
-
-.item button{
-    width: 50px;
-    height: 30px;
-    background-color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.1s all ease-in-out ;
 }
 
-.item button:hover{
-    /* font-size: 1.5rem; */
-    box-shadow: #0c2ad487 0px 2px 15px 0px;
-
+.editBtn{
+    width: 25px;
+    height: 25px;
 }
