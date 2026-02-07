@@ -10,13 +10,16 @@
 
 .searchContainer{
     display: flex;
+    
     align-items: baseline;
     gap: 20px;
 }
 
 .toolsContainer{
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 .toolsContainer button{
@@ -48,3 +51,10 @@
 .searchContainer p{
     color: #008CBA;
 }
+
+
+.deleteallBtn{
+    width: 35px;
+    height: 30px;
+}
+

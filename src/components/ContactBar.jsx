@@ -5,16 +5,25 @@ import AddContact from "./AddContact"
 import styles from "./ContactBar.module.css"
 import ContactList from "./ContactList"
 
+import deleteIcon from "../assets/delete-svgrepo-com2.svg"
+import ModalWarning from "./ModalWarning"
+
+
 
 function ContactBar() {
 
-    const [contacts,setContacts]=useState(JSON.parse(localStorage.getItem("contacts")))
+    const [contacts,setContacts]=useState(JSON.parse(localStorage.getItem("contacts")) || [])
     const [addStatus , setAddStatus] = useState(false)
     const [searchRes , setSearchRes] = useState([])
     const [searchValue , setSearchValue] = useState("")
     const [edit , setEdit] = useState({})
     const [saveStatus , setSaveStatus] = useState(false)
+    const [selectState , setSelectState] = useState(false)
+    const [checkedId , setCheckedId] = useState([])
 
+
+
+    console.log(modalBox)
     //but with useEffect way we fixed the lost update problem
     useEffect(()=>{
         const stringifyContact =JSON.stringify(contacts)
@@ -43,12 +52,29 @@ function ContactBar() {
 
     const addHandler = ()=>{
         setAddStatus((addStatus)=>!addStatus)
-        // console.log(addStatus)
     }
     
-    
 
-    const selectHandler = ()=>{}
+    const multiDeleteHandler = ()=>{
+
+        const newContacts = contacts.filter(contact=>{
+            return !checkedId.includes(contact.id)
+        })
+        
+        setContacts(newContacts)
+        setSaveStatus(saveStatus=>!saveStatus)
+
+    }
+
+
+    const selectBtnHandler = ()=>{
+        setSelectState(selectState => !selectState)
+        //why when selectState is true, is working ??!
+        if(selectState){
+            setCheckedId([])
+        }
+    }
+
 
   return (
     <>
@@ -61,8 +87,18 @@ function ContactBar() {
                         <input type="text" name="search" placeholder="Search Contact" onChange={searchHandler}/>
                     </div>
                     <div className={styles.toolsContainer}>
-                        <button onClick={addHandler}>Add Contact</button>
-                        <button onClick={selectHandler}>Select</button>
+                        {
+                            selectState ? 
+                            <>
+                            <img src={deleteIcon} alt="deleteAll"  className={styles.deleteallBtn} onClick={multiDeleteHandler}/>
+                            <button onClick={selectBtnHandler}>Deselect</button>
+                            </>
+                            : 
+                            <>
+                            <button onClick={addHandler}>Add Contact</button>
+                            <button onClick={selectBtnHandler}>Select</button>
+                            </>
+                        }
                     </div>
                 </div>
                 <ContactList 
@@ -75,7 +111,13 @@ function ContactBar() {
                     edit={edit}
                     setEdit={setEdit}
                     setSaveStatus={setSaveStatus}
+                    selectState={selectState}
+                    checkedId={checkedId}
+                    setCheckedId={setCheckedId}
+                    modalBox={modalBox}
                 />
+
+
                 
                 </>
 
