@@ -1,0 +1,76 @@
+.item{
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e0e0e0;
+    color: #242424;
+    padding: 10px 20px;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.item p{
+    width: 30%;
+    flex-basis: 0;
+    flex-grow: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mailBox{
+    display: inline-block;
+    margin-right: 7px;
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.item input {
+    width: 20px;
+    height: 20px;
+}
+
+
+.checkBox {
+    width: 15%;
+    display: flex;
+    justify-content: flex-end;
+    /* align-items: center; */
+}
+
+.checkBox input{
+    /* appearance: none; */
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    
+}
+
+.buttonBox{
+    width: 15%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.item img{
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.moreBtn{
+    width: 40px;
+    height: 40px;
+}
+
+.deleteBtn{
+    width: 35px;
+    height: 35px;
+}
+
+.editBtn{
+    width: 25px;
+    height: 25px;
+}

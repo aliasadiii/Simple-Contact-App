@@ -1,0 +1,63 @@
+
+.modalBox{
+    display: none;
+    margin: 0 auto;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modalShow{
+    display: none;
+}
+
+
+.modalContent{
+    margin: 150px auto;
+    width: 500px;
+    height: 150px;
+    background-color: #e0e0e0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: #242424;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.modalInfo{
+    margin: 0 auto; 
+    padding: 20px;
+    width: 90%;
+    text-align: center;
+}
+
+.modalBtn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modalBtn button{
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+.delBtn{
+    background-color: #F44336;
+
+}
+
+.noBtn{
+    background-color: #75dcdc;
+
+}
