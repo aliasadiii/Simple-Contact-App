@@ -30,8 +30,8 @@ function ModalWarning({singleDeleteHandler,setDeleteId , modalDisplay , setModal
         <div className={styles.modalContent}>
             <div className={styles.modalInfo}>
                 {
-                    multiDelCheck ? <p>Are you Sure you want to delete All these Contacts?</p>
-                    :<p>Are you Sure you want to delete this Contact?</p>
+                    multiDelCheck ? <p>Are you Sure you want to delete Multiple Contact?</p>
+                    :<p  >Are you Sure you want to delete this Contact?</p>
                 }
             </div>
             <div className={styles.modalBtn}>

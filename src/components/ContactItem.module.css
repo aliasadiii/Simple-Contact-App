@@ -40,8 +40,11 @@
 }
 
 .checkBox input{
-    width: 30px;
-    height: 30px;
+    /* appearance: none; */
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    
 }
 
 .buttonBox{

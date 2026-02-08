@@ -5,7 +5,7 @@ import ContactItem from './ContactItem'
 import styles from "./ContactList.module.css"
 import ModalWarning from './ModalWarning'
 
-function ContactList({contacts , setContacts , searchRes , searchValue , setAddStatus , edit , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , multiDeleteHandler , multiDelCheck , setModalDisplay , modalDisplay , setMultiDelCheck}) {
+function ContactList({contacts , setContacts , searchRes , searchValue , setAddStatus , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , multiDeleteHandler , multiDelCheck , setModalDisplay , modalDisplay , setMultiDelCheck}) {
    
     const [deleteId , setDeleteId] = useState("")
    
@@ -35,7 +35,7 @@ function ContactList({contacts , setContacts , searchRes , searchValue , setAddS
         }
 
     }
-
+console.log(searchValue , searchRes)
   return (
 
     <div className={styles.container}>
@@ -54,21 +54,26 @@ function ContactList({contacts , setContacts , searchRes , searchValue , setAddS
             contacts.length ?(
                 <ul className={styles.contacts}>
                     {
-                       (searchRes.length || searchValue ? searchRes : contacts).map((contact)=>
-                        <ContactItem 
-                            key={contact.id} 
-                            data={contact} 
-                            setAddStatus={setAddStatus}
-                            setEdit={setEdit}
-                            edit={edit}
-                            selectState={selectState}
-                            selectHandler={selectHandler}
-                            modalHandler={modalHandler}
-                        />
-                    )
+                        (searchRes.length || searchValue ? searchRes : contacts).map((contact)=>
+                            
+                            <ContactItem 
+                                key={contact.id} 
+                                data={contact} 
+                                setAddStatus={setAddStatus}
+                                setEdit={setEdit}
+                                selectState={selectState}
+                                selectHandler={selectHandler}
+                                modalHandler={modalHandler}    
+                            />
+                            
+                                                    
+                        )
                     }
-                    
+
+                    {(!searchRes.length && searchValue) && <li  className={styles.NotFoundMessage}>No Contact Found</li>}
+ 
                 </ul>
+                // {searchRes.length ?}
             ) :( <p className={styles.message}>No Contacts Yet!</p> ) 
         }
     </div>

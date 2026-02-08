@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import styles from "./ContactItem.module.css"
 
@@ -8,7 +8,7 @@ import editIcon from "../assets/edit-3-svgrepo-com.svg"
 import moreIcon from "../assets/more-horizontal-square-svgrepo.svg"
 
 
-function ContactItem({data , setAddStatus , setEdit , edit , selectState , selectHandler , modalHandler}) {
+function ContactItem({data , setAddStatus , setEdit , selectState , selectHandler , modalHandler}) {
 
     const [moreCheck , setMoreCheck] = useState(true)
      
@@ -19,7 +19,7 @@ function ContactItem({data , setAddStatus , setEdit , edit , selectState , selec
     const  {id,fullName,job,email,phone} = data
 
     const editHandler = ()=>{
-        setEdit((edit)=> edit = {... data})
+        setEdit({... data})
         setAddStatus((addStatus)=>!addStatus)
     }
 

@@ -33,3 +33,10 @@
     font-weight: 500;
 
 }
+
+
+.NotFoundMessage{
+    text-align: center;
+    padding: 10px;
+}
+

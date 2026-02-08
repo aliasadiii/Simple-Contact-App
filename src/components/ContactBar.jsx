@@ -45,8 +45,8 @@ function ContactBar() {
         contact.fullName.includes(value)||contact.email.includes(value) )
         console.log(searchResult);
         
-        setSearchValue(searchValue=>searchValue=value)
-        setSearchRes((searchRes)=>searchRes=searchResult)
+        setSearchValue(value)
+        setSearchRes(searchResult)
 
     }
 
@@ -113,11 +113,9 @@ function ContactBar() {
                 <ContactList 
                     contacts={contacts} 
                     setContacts={setContacts} 
-                    // saveToLocalStorage={saveToLocalStorage} 
                     searchRes={searchRes} 
                     searchValue={searchValue} 
                     setAddStatus={setAddStatus}
-                    edit={edit}
                     setEdit={setEdit}
                     setSaveStatus={setSaveStatus}
                     selectState={selectState}
@@ -140,7 +138,6 @@ function ContactBar() {
                 setAddStatus={setAddStatus} 
                 contacts={contacts} 
                 setContacts={setContacts} 
-                // saveToLocalStorage={saveToLocalStorage} 
                 edit={edit}
                 setEdit={setEdit}
                 setSaveStatus={setSaveStatus}
