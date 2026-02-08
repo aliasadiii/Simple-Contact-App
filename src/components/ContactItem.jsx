@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from "./ContactItem.module.css"
 
@@ -8,9 +8,10 @@ import editIcon from "../assets/edit-3-svgrepo-com.svg"
 import moreIcon from "../assets/more-horizontal-square-svgrepo.svg"
 
 
-function ContactItem({data , singleDeleteHandler , setAddStatus , setEdit , edit , selectState , selectHandler}) {
+function ContactItem({data , setAddStatus , setEdit , edit , selectState , selectHandler , modalHandler}) {
 
     const [moreCheck , setMoreCheck] = useState(true)
+     
     const moreHandler = ()=>{
         setMoreCheck(moreCheck=>!moreCheck)
     }
@@ -18,14 +19,13 @@ function ContactItem({data , singleDeleteHandler , setAddStatus , setEdit , edit
     const  {id,fullName,job,email,phone} = data
 
     const editHandler = ()=>{
-        // console.log(data)
         setEdit((edit)=> edit = {... data})
-        // console.log(edit)
         setAddStatus((addStatus)=>!addStatus)
     }
 
 
 
+    
 
   return (
     <li className={styles.item}>
@@ -49,7 +49,7 @@ function ContactItem({data , singleDeleteHandler , setAddStatus , setEdit , edit
                         (
                             <>
                                 <img src={editIcon} alt="editIcon" className={styles.editBtn}  onClick={editHandler}/>
-                                <img src={deleteIcon} alt="deleteIcon"  className={styles.deleteBtn} onClick={()=>singleDeleteHandler(id)}/>
+                                <img src={deleteIcon} alt="deleteIcon"  className={styles.deleteBtn} onClick={()=>modalHandler(id)}/>
                             </>
 
                         )  

@@ -5,22 +5,25 @@ import ContactItem from './ContactItem'
 import styles from "./ContactList.module.css"
 import ModalWarning from './ModalWarning'
 
-function ContactList({contacts , setContacts , saveToLocalStorage , searchRes , searchValue , setAddStatus , edit , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , modalBox}) {
+function ContactList({contacts , setContacts , searchRes , searchValue , setAddStatus , edit , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , multiDeleteHandler , multiDelCheck , setModalDisplay , modalDisplay , setMultiDelCheck}) {
    
-    const [modalStatus , setModalStatus] = useState({modalState:false , deleteState:false})
-    // const modalBox = document.getElementById("modalBox")
+    const [deleteId , setDeleteId] = useState("")
+   
 
-
-    const singleDeleteHandler = (id)=>{
-        setModalStatus(modalStatus=>!modalStatus.modalState)
-        modalBox.style.display="flex"
-        // const newContact = contacts.filter((contact)=>contact.id!==id)
-        // setContacts(newContact)
-        // setSaveStatus(saveStatus=>!saveStatus)
-
-        
-        // saveToLocalStorage(newContact)
+    const singleDeleteHandler = ()=>{
+        const newContact = contacts.filter((contact)=>contact.id!==deleteId)
+        setContacts(newContact)
+        setSaveStatus(saveStatus=>!saveStatus)
+        setModalDisplay("none")
+        setDeleteId("")
     }
+
+    const modalHandler=(id)=>{
+        setModalDisplay("flex")
+        setDeleteId(id)
+        setMultiDelCheck(false)
+    }
+
 
     const selectHandler = (event)=>{
         const targetId = event.target.value
@@ -33,14 +36,20 @@ function ContactList({contacts , setContacts , saveToLocalStorage , searchRes , 
 
     }
 
-    // console.log(selectState)
-    // console.log("checkedId", checkedId)
-
   return (
 
     <div className={styles.container}>
         <h2>Contact List</h2>
-        <ModalWarning id='modalBox'/>
+        <ModalWarning id='modalBox' 
+            setDeleteId={setDeleteId}
+            singleDeleteHandler={singleDeleteHandler}
+            modalDisplay={modalDisplay}
+            setModalDisplay={setModalDisplay}
+            multiDeleteHandler={multiDeleteHandler}
+            multiDelCheck={multiDelCheck}
+            setMultiDelCheck={setMultiDelCheck}
+        />
+
         {
             contacts.length ?(
                 <ul className={styles.contacts}>
@@ -49,12 +58,12 @@ function ContactList({contacts , setContacts , saveToLocalStorage , searchRes , 
                         <ContactItem 
                             key={contact.id} 
                             data={contact} 
-                            singleDeleteHandler={singleDeleteHandler} 
                             setAddStatus={setAddStatus}
                             setEdit={setEdit}
                             edit={edit}
                             selectState={selectState}
                             selectHandler={selectHandler}
+                            modalHandler={modalHandler}
                         />
                     )
                     }

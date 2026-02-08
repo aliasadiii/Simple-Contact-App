@@ -4,37 +4,39 @@ import styles from "./ModalWarning.module.css"
 
 
 
-function ModalWarning() {
-
+                            
+function ModalWarning({singleDeleteHandler,setDeleteId , modalDisplay , setModalDisplay , multiDeleteHandler , multiDelCheck , setMultiDelCheck}) {
+    
     const modalBox = document.getElementById("modalBox")
-    // modalBox.style.display="flex"
-
 
     const closeHandler =()=>{
-        modalBox.style.display="none"
+        setModalDisplay("none")
+        setDeleteId("")
+        setMultiDelCheck(false)
     }
     
-    const deleteHandler =()=>{
-
-    }
-
-    // window.onclick = function(event) {
-    //     if (event.target == modalBox) {
-    //         modalBox.style.display = "none";
-    //     }
-    // }   
+    //for closing modal by clicking outside bix //why eslint shows error?
+    window.onclick = function(event) {
+        if (event.target == modalBox) {
+            setModalDisplay("none")
+            setMultiDelCheck(false)
+        }
+    }   
 
 
     
   return (
-    <div className={styles.modalBox} id='modalBox'>
+    <div className={styles.modalBox} style={{display:modalDisplay}} id='modalBox'>
         <div className={styles.modalContent}>
             <div className={styles.modalInfo}>
-                <p>Are you Sure you want to delete this Contact?</p>
+                {
+                    multiDelCheck ? <p>Are you Sure you want to delete All these Contacts?</p>
+                    :<p>Are you Sure you want to delete this Contact?</p>
+                }
             </div>
             <div className={styles.modalBtn}>
                 <button  className={styles.noBtn} onClick={closeHandler} >No, Don't delete</button>
-                <button className={styles.delBtn} onClick={deleteHandler}>Yes, I'am Sure</button>
+                <button className={styles.delBtn} onClick={multiDelCheck ? multiDeleteHandler  : singleDeleteHandler }>Yes, I'am Sure</button>
             </div>
         </div>
     </div>    

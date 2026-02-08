@@ -1,5 +1,6 @@
 
 .modalBox{
+    display: none;
     margin: 0 auto;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -11,6 +12,11 @@
     background-color: rgba(0,0,0,0.4); 
     /* justify-content: center; */
 }
+
+.modalShow{
+    display: none;
+}
+
 
 .modalContent{
     margin: 150px auto;

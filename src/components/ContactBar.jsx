@@ -20,10 +20,10 @@ function ContactBar() {
     const [saveStatus , setSaveStatus] = useState(false)
     const [selectState , setSelectState] = useState(false)
     const [checkedId , setCheckedId] = useState([])
+    const [multiDelCheck , setMultiDelCheck ] = useState(false)
+    const [modalDisplay,setModalDisplay] = useState("")
 
 
-
-    console.log(modalBox)
     //but with useEffect way we fixed the lost update problem
     useEffect(()=>{
         const stringifyContact =JSON.stringify(contacts)
@@ -54,7 +54,16 @@ function ContactBar() {
         setAddStatus((addStatus)=>!addStatus)
     }
     
+    
+    const multiDelCheckHandler = ()=>{
+        if(checkedId.length){
+            setMultiDelCheck(true)
+            setModalDisplay("flex")
+            // console.log(multiDelCheck)
+        }
+    }
 
+    //........
     const multiDeleteHandler = ()=>{
 
         const newContacts = contacts.filter(contact=>{
@@ -63,9 +72,10 @@ function ContactBar() {
         
         setContacts(newContacts)
         setSaveStatus(saveStatus=>!saveStatus)
-
+        setCheckedId([])
+        setModalDisplay("none")
+        setMultiDelCheck(false)
     }
-
 
     const selectBtnHandler = ()=>{
         setSelectState(selectState => !selectState)
@@ -74,8 +84,7 @@ function ContactBar() {
             setCheckedId([])
         }
     }
-
-
+    console.log(checkedId)
   return (
     <>
         {!addStatus 
@@ -90,7 +99,7 @@ function ContactBar() {
                         {
                             selectState ? 
                             <>
-                            <img src={deleteIcon} alt="deleteAll"  className={styles.deleteallBtn} onClick={multiDeleteHandler}/>
+                            <img src={deleteIcon} alt="deleteAll"  className={styles.deleteallBtn} onClick={multiDelCheckHandler}/>
                             <button onClick={selectBtnHandler}>Deselect</button>
                             </>
                             : 
@@ -114,7 +123,11 @@ function ContactBar() {
                     selectState={selectState}
                     checkedId={checkedId}
                     setCheckedId={setCheckedId}
-                    modalBox={modalBox}
+                    multiDeleteHandler={multiDeleteHandler}
+                    setMultiDelCheck={setMultiDelCheck}
+                    multiDelCheck={multiDelCheck}
+                    modalDisplay={modalDisplay}
+                    setModalDisplay={setModalDisplay}
                 />
 
 
