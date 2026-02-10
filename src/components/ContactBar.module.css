@@ -11,7 +11,6 @@
 
 .searchContainer{
     display: flex;
-    
     align-items: baseline;
     gap: 20px;
 }
@@ -57,5 +56,6 @@
 .deleteallBtn{
     width: 35px;
     height: 30px;
+    cursor: pointer;
 }
 
