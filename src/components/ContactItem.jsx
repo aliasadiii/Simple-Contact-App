@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styles from "./ContactItem.module.css"
 
 import mailbox from "../assets/mailbox-svgrepo-com.svg"
-import deleteIcon from "../assets/delete-svgrepo-com.svg"
+import deleteIcon from "../assets/delete-svgrepo-com2.svg"
 import editIcon from "../assets/edit-3-svgrepo-com.svg"
 import moreIcon from "../assets/more-horizontal-square-svgrepo.svg"
 
@@ -22,10 +22,6 @@ function ContactItem({data , setAddStatus , setEdit , selectState , selectHandle
         setEdit({... data})
         setAddStatus((addStatus)=>!addStatus)
     }
-
-
-
-    
 
   return (
     <li className={styles.item}>

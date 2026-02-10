@@ -6,8 +6,6 @@ import styles from "./ContactBar.module.css"
 import ContactList from "./ContactList"
 
 import deleteIcon from "../assets/delete-svgrepo-com2.svg"
-import ModalWarning from "./ModalWarning"
-
 
 
 function ContactBar() {
@@ -35,7 +33,6 @@ function ContactBar() {
     // const saveToLocalStorage = (contacts)=>{
     //     const stringifyContact =JSON.stringify(contacts)
     //     localStorage.setItem("contacts",stringifyContact)
-
     // }
 
     const searchHandler = (event)=>{
@@ -47,7 +44,6 @@ function ContactBar() {
         
         setSearchValue(value)
         setSearchRes(searchResult)
-
     }
 
     const addHandler = ()=>{
@@ -59,11 +55,9 @@ function ContactBar() {
         if(checkedId.length){
             setMultiDelCheck(true)
             setModalDisplay("flex")
-            // console.log(multiDelCheck)
         }
     }
 
-    //........
     const multiDeleteHandler = ()=>{
 
         const newContacts = contacts.filter(contact=>{
@@ -84,7 +78,7 @@ function ContactBar() {
             setCheckedId([])
         }
     }
-    console.log(checkedId)
+
   return (
     <>
         {!addStatus 
@@ -92,7 +86,7 @@ function ContactBar() {
                 <>
                 <div className={styles.container}>
                     <div className={styles.searchContainer}>
-                        <p>search in contact :</p>
+                        {/* <p>search in contacts :</p> */}
                         <input type="text" name="search" placeholder="Search Contact" onChange={searchHandler}/>
                     </div>
                     <div className={styles.toolsContainer}>
@@ -127,9 +121,6 @@ function ContactBar() {
                     modalDisplay={modalDisplay}
                     setModalDisplay={setModalDisplay}
                 />
-
-
-                
                 </>
 
             ) 
