@@ -3,14 +3,17 @@ import React, { useState } from 'react'
 import inputs from '../constants/inputs.js'
 
 import styles from "./AddContact.module.css"
+import SnackBar from './SnackBar.jsx'
 
-function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage , setEdit , edit , setSaveStatus}) {
+function AddContact({setAddStatus , setContacts , contacts , setEdit , edit , setSaveStatus}) {
 
-    // console.log(Object.keys(edit).length)
-    console.log(edit.id)
-
-    
-    const [contact , setContact]=useState(edit)
+    const [contact , setContact]=useState(edit || {
+            id:"",
+            fullName:"",
+            email:"",
+            job:"",
+            phone:"",
+        })
 
     const [validation , setValidation]=useState({
         nameValidation: true,
@@ -19,8 +22,6 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
     })
 
     const [alert,setAlert]=useState("")
-
-
 
     const changeHandler = (event)=>{
         const value = event.target.value
@@ -32,7 +33,6 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
             !res 
             ? setValidation((validation=>({...validation , nameValidation:false}))) 
             : setValidation((validation=>({...validation , nameValidation:true})))
-            // console.log(validation.nameValidation)
         }else if(name==="email"){
             const nameRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             const res=nameRegex.test(value)
@@ -46,6 +46,14 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
             ? setValidation((validation=>({...validation , phoneValidation:false}))) 
             : setValidation((validation=>({...validation , phoneValidation:true})))
         }
+    }
+
+    const showSnackBar = () => {
+        const addToast = document.getElementById("addToast")
+        addToast.classList.add("show")
+        setTimeout(()=>{
+            addToast.classList.remove("show")
+        },3000)
     }
 
     const addHandler = ()=>{
@@ -75,14 +83,12 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
             const editedContact = {...contact , id: edit.id}
             const editedContacts =  contacts.filter(contact => contact.id!==edit.id)
 
-            setContacts(contacts => [...editedContacts , editedContact]); 
-
+            setContacts([...editedContacts , editedContact]); 
             setAddStatus((addStatus)=>!addStatus)
         }
-        
         setSaveStatus(saveStatus=>!saveStatus)
 
-        // saveToLocalStorage(contacts);
+        showSnackBar();
 
         setContact({
             id:"",
@@ -93,14 +99,14 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
         });
         
         if(Object.keys(edit).length)(
-            setEdit((edit)=>edit={})
+            setEdit({})
         )
     }
 
     const homeHandler = ()=>{
         setAddStatus(addStatus=>!addStatus)
         if(Object.keys(edit).length)(
-            setEdit((edit)=>edit={})
+            setEdit({})
         )
     }
 
@@ -128,7 +134,7 @@ function AddContact({setAddStatus , setContacts , contacts , saveToLocalStorage 
             <button onClick={addHandler}>{Object.keys(edit).length ? "Edit Contact" : "Add Contact"}</button>
             <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
         </div>
-
+        <SnackBar/>
     </div>
   )
 }

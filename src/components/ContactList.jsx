@@ -4,11 +4,20 @@ import ContactItem from './ContactItem'
 
 import styles from "./ContactList.module.css"
 import ModalWarning from './ModalWarning'
+import SnackBar from './SnackBar'
 
 function ContactList({contacts , setContacts , searchRes , searchValue , setAddStatus , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , multiDeleteHandler , multiDelCheck , setModalDisplay , modalDisplay , setMultiDelCheck}) {
    
     const [deleteId , setDeleteId] = useState("")
-   
+
+
+    const showSnackBar = () => {
+        const addToast = document.getElementById("deleteToast")
+        addToast.classList.add("show")
+        setTimeout(()=>{
+            addToast.classList.remove("show")
+        },3000)
+    }
 
     const singleDeleteHandler = ()=>{
         const newContact = contacts.filter((contact)=>contact.id!==deleteId)
@@ -16,6 +25,7 @@ function ContactList({contacts , setContacts , searchRes , searchValue , setAddS
         setSaveStatus(saveStatus=>!saveStatus)
         setModalDisplay("none")
         setDeleteId("")
+        showSnackBar()
     }
 
     const modalHandler=(id)=>{
@@ -35,7 +45,8 @@ function ContactList({contacts , setContacts , searchRes , searchValue , setAddS
         }
 
     }
-console.log(searchValue , searchRes)
+// console.log(searchValue , searchRes)
+
   return (
 
     <div className={styles.container}>
@@ -49,6 +60,8 @@ console.log(searchValue , searchRes)
             multiDelCheck={multiDelCheck}
             setMultiDelCheck={setMultiDelCheck}
         />
+
+        <SnackBar />
 
         {
             contacts.length ?(
@@ -64,9 +77,7 @@ console.log(searchValue , searchRes)
                                 selectState={selectState}
                                 selectHandler={selectHandler}
                                 modalHandler={modalHandler}    
-                            />
-                            
-                                                    
+                            />                       
                         )
                     }
 
