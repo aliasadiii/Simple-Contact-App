@@ -1,14 +1,18 @@
-import ContactBar from "./components/ContactBar"
-import Header from "./components/Header"
+import ContactBar from "./components/ContactBar";
+import ContactListProvider from "./context/ContactsContext";
+
+import Layout from "./layout/Layout";
 
 function App() {
-
   return (
     <>
-      <Header />
-      <ContactBar />
+      <ContactListProvider>
+        <Layout>
+          <ContactBar />
+        </Layout>
+      </ContactListProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

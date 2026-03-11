@@ -1,94 +1,114 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from "react";
+import { useContacts } from "../context/ContactsContext";
 
-import ContactItem from './ContactItem'
+import ContactItem from "./ContactItem";
+import ModalWarning from "./ModalWarning";
+import SnackBar from "./SnackBar";
 
-import styles from "./ContactList.module.css"
-import ModalWarning from './ModalWarning'
-import SnackBar from './SnackBar'
+import styles from "./ContactList.module.css";
 
-function ContactList({contacts , setContacts , searchRes , searchValue , setAddStatus , setEdit , setSaveStatus , selectState , setCheckedId , checkedId , multiDeleteHandler , multiDelCheck , setModalDisplay , modalDisplay , setMultiDelCheck}) {
-   
-    const [deleteId , setDeleteId] = useState("")
+function ContactList({
+  searchRes,
+  searchValue,
+  setAddStatus,
+  selectState,
+  multiDeleteHandler,
+  multiDelCheck,
+  setModalDisplay,
+  modalDisplay,
+  setMultiDelCheck,
+  selectedItems,
+}) {
+  //new.........................................................
 
+  const [state, dispatch] = useContacts();
+  const [displayedContacts, setDisplayedContacts] = useState([]);
+  //new.........................................................
+  useEffect(() => {
+    setDisplayedContacts(state.contacts);
+  }, [state.contacts]);
+  //new.........................................................
 
-    const showSnackBar = () => {
-        const addToast = document.getElementById("deleteToast")
-        addToast.classList.add("show")
-        setTimeout(()=>{
-            addToast.classList.remove("show")
-        },3000)
+  const showSnackBar = () => {
+    const addToast = document.getElementById("deleteToast");
+    addToast.classList.add("show");
+    setTimeout(() => {
+      addToast.classList.remove("show");
+    }, 3000);
+  };
+
+  const singleDeleteHandler = () => {
+    //new........................
+    dispatch({ type: "REMOVE_CONTACT" });
+    dispatch({ type: "SAVE_CONTACT" });
+    //...........................
+    setModalDisplay("none");
+    showSnackBar();
+  };
+
+  const modalHandler = (id) => {
+    //new...............
+    dispatch({ type: "SELECT_CONTACTS", payload: [id] });
+    //..................
+    setModalDisplay("flex");
+    setMultiDelCheck(false);
+  };
+
+  const selectHandler = (event) => {
+    const targetId = event.target.value;
+    if (event.target.checked) {
+      //new....................
+      selectedItems.current = [...selectedItems.current, targetId];
+      //.......................
+    } else {
+      selectedItems.current = selectedItems.current.filter(
+        (id) => id != targetId,
+      );
     }
-
-    const singleDeleteHandler = ()=>{
-        const newContact = contacts.filter((contact)=>contact.id!==deleteId)
-        setContacts(newContact)
-        setSaveStatus(saveStatus=>!saveStatus)
-        setModalDisplay("none")
-        setDeleteId("")
-        showSnackBar()
-    }
-
-    const modalHandler=(id)=>{
-        setModalDisplay("flex")
-        setDeleteId(id)
-        setMultiDelCheck(false)
-    }
-
-
-    const selectHandler = (event)=>{
-        const targetId = event.target.value
-        if (event.target.checked){
-            setCheckedId(checkedId=>checkedId=[...checkedId , targetId])
-        }else{
-            const newCheckedId=checkedId.filter(id => id !=targetId)
-            setCheckedId([...newCheckedId])
-        }
-
-    }
-// console.log(searchValue , searchRes)
+    dispatch({ type: "SELECT_CONTACTS", payload: selectedItems.current });
+  };
 
   return (
-
     <div className={styles.container}>
-        <h2>Contact List</h2>
-        <ModalWarning id='modalBox' 
-            setDeleteId={setDeleteId}
-            singleDeleteHandler={singleDeleteHandler}
-            modalDisplay={modalDisplay}
-            setModalDisplay={setModalDisplay}
-            multiDeleteHandler={multiDeleteHandler}
-            multiDelCheck={multiDelCheck}
-            setMultiDelCheck={setMultiDelCheck}
-        />
+      <h2>Contact List</h2>
+      <ModalWarning
+        id="modalBox"
+        singleDeleteHandler={singleDeleteHandler}
+        modalDisplay={modalDisplay}
+        setModalDisplay={setModalDisplay}
+        multiDeleteHandler={multiDeleteHandler}
+        multiDelCheck={multiDelCheck}
+        setMultiDelCheck={setMultiDelCheck}
+      />
 
-        <SnackBar />
+      <SnackBar />
 
-        {
-            contacts.length ?(
-                <ul className={styles.contacts}>
-                    {
-                        (searchRes.length || searchValue ? searchRes : contacts).map((contact)=>
-                            
-                            <ContactItem 
-                                key={contact.id} 
-                                data={contact} 
-                                setAddStatus={setAddStatus}
-                                setEdit={setEdit}
-                                selectState={selectState}
-                                selectHandler={selectHandler}
-                                modalHandler={modalHandler}    
-                            />                       
-                        )
-                    }
+      {displayedContacts.length ? (
+        <ul className={styles.contacts}>
+          {(searchRes.length || searchValue
+            ? searchRes
+            : displayedContacts
+          ).map((contact) => (
+            <ContactItem
+              key={contact.id}
+              data={contact}
+              setAddStatus={setAddStatus}
+              selectState={selectState}
+              selectHandler={selectHandler}
+              modalHandler={modalHandler}
+            />
+          ))}
 
-                    {(!searchRes.length && searchValue) && <li  className={styles.NotFoundMessage}>No Contact Found</li>}
- 
-                </ul>
-                // {searchRes.length ?}
-            ) :( <p className={styles.message}>No Contacts Yet!</p> ) 
-        }
+          {!searchRes.length && searchValue && (
+            <li className={styles.NotFoundMessage}>No Contact Found</li>
+          )}
+        </ul>
+      ) : (
+        // {searchRes.length ?}
+        <p className={styles.message}>No Contacts Yet!</p>
+      )}
     </div>
-  )
+  );
 }
 
-export default ContactList
+export default ContactList;

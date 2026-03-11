@@ -16,7 +16,7 @@
     margin-top: 20px;
     padding: 5px;
     border-radius: 10px;
-    height: 460px;
+    height: calc(100vh - 300px);
     /* scrollbar-width: thin;
     scrollbar-color: #242424 #FFFFFF ; */
     overflow-y: scroll;
