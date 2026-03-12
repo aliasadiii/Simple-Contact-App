@@ -11,11 +11,10 @@ import deleteIcon from "../assets/delete-svgrepo-com2.svg";
 function ContactBar() {
   //new.........................................................
   const [state, dispatch] = useContacts();
+  const [displayedContacts, setDisplayedContacts] = useState([]);
   const selectedItems = useRef([]);
   //............................................................
   const [addStatus, setAddStatus] = useState(false);
-  const [searchRes, setSearchRes] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
   const [selectState, setSelectState] = useState(false);
   const [multiDelCheck, setMultiDelCheck] = useState(false);
   const [modalDisplay, setModalDisplay] = useState("");
@@ -31,10 +30,8 @@ function ContactBar() {
       (contact) =>
         contact.fullName.includes(value) || contact.email.includes(value),
     );
-    console.log(searchResult);
 
-    setSearchValue(value);
-    setSearchRes(searchResult);
+    setDisplayedContacts(searchResult);
   };
 
   const multiDelCheckHandler = () => {
@@ -94,8 +91,8 @@ function ContactBar() {
             </div>
           </div>
           <ContactList
-            searchRes={searchRes}
-            searchValue={searchValue}
+            displayedContacts={displayedContacts}
+            setDisplayedContacts={setDisplayedContacts}
             setAddStatus={setAddStatus}
             selectState={selectState}
             multiDeleteHandler={multiDeleteHandler}

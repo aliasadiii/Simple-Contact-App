@@ -7,7 +7,7 @@ const initialState = {
   selectedContacts: [],
   editedContact: null,
 };
-console.log(initialState);
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_CONTACT":
@@ -34,6 +34,11 @@ const reducer = (state, action) => {
     case "EDIT_CONTACT":
       state.editedContact = action.payload;
       return { ...state };
+    // case "SEARCH_CONTACTS":
+    //   if (action.payload.length){
+
+    //   }
+    // return;
     default:
       throw new Error("Invalid Action !");
   }

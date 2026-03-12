@@ -8,8 +8,6 @@ import SnackBar from "./SnackBar";
 import styles from "./ContactList.module.css";
 
 function ContactList({
-  searchRes,
-  searchValue,
   setAddStatus,
   selectState,
   multiDeleteHandler,
@@ -18,11 +16,12 @@ function ContactList({
   modalDisplay,
   setMultiDelCheck,
   selectedItems,
+  displayedContacts,
+  setDisplayedContacts,
 }) {
   //new.........................................................
 
   const [state, dispatch] = useContacts();
-  const [displayedContacts, setDisplayedContacts] = useState([]);
   //new.........................................................
   useEffect(() => {
     setDisplayedContacts(state.contacts);
@@ -83,12 +82,9 @@ function ContactList({
 
       <SnackBar />
 
-      {displayedContacts.length ? (
+      {state.contacts.length ? (
         <ul className={styles.contacts}>
-          {(searchRes.length || searchValue
-            ? searchRes
-            : displayedContacts
-          ).map((contact) => (
+          {displayedContacts.map((contact) => (
             <ContactItem
               key={contact.id}
               data={contact}
@@ -99,7 +95,7 @@ function ContactList({
             />
           ))}
 
-          {!searchRes.length && searchValue && (
+          {!displayedContacts.length && (
             <li className={styles.NotFoundMessage}>No Contact Found</li>
           )}
         </ul>

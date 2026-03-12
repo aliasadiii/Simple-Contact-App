@@ -8,9 +8,10 @@ import SnackBar from "./SnackBar.jsx";
 import styles from "./AddContact.module.css";
 
 function AddContact({ setAddStatus }) {
+  console.log()
   //new...................................
   const [state, dispatch] = useContacts();
-  //new...................................
+  //new................................... 
 
   const [contact, setContact] = useState(
     state.editedContact || {
