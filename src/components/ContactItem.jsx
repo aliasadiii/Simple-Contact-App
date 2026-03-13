@@ -54,6 +54,12 @@ function ContactItem({
           ) : (
             <>
               <img
+                src={moreIcon}
+                alt="moreIcon"
+                className={styles.backBtn}
+                onClick={moreHandler}
+              />
+              <img
                 src={editIcon}
                 alt="editIcon"
                 className={styles.editBtn}

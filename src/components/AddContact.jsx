@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useContacts } from "../context/ContactsContext.jsx";
 
+import SnackBar from "./SnackBar.jsx";
+
 import inputs from "../constants/inputs.js";
 
-import SnackBar from "./SnackBar.jsx";
+import {
+  creationTime,
+  makeRandomID,
+  showSnackBar,
+} from "../helpers/helpers.js";
 
 import styles from "./AddContact.module.css";
 
 function AddContact({ setAddStatus }) {
-  console.log()
-  //new...................................
   const [state, dispatch] = useContacts();
-  //new................................... 
-
   const [contact, setContact] = useState(
     state.editedContact || {
       id: "",
@@ -22,19 +24,18 @@ function AddContact({ setAddStatus }) {
       phone: "",
     },
   );
-
   const [validation, setValidation] = useState({
     nameValidation: true,
     phoneValidation: true,
     emailValidation: true,
   });
-
   const [alert, setAlert] = useState("");
 
   const changeHandler = (event) => {
     const value = event.target.value;
     const name = event.target.name;
     setContact((contact) => ({ ...contact, [name]: value }));
+    //validation...................................................................
     if (name === "fullName") {
       const nameRegex = /[a-zA-Z\s]{7,}/g;
       const res = nameRegex.test(value);
@@ -72,17 +73,11 @@ function AddContact({ setAddStatus }) {
             phoneValidation: true,
           }));
     }
-  };
-
-  const showSnackBar = () => {
-    const addToast = document.getElementById("addToast");
-    addToast.classList.add("show");
-    setTimeout(() => {
-      addToast.classList.remove("show");
-    }, 3000);
+    //validation...................................................................
   };
 
   const addHandler = () => {
+    //validation...................................................................
     if (
       !contact.fullName ||
       !contact.job ||
@@ -97,24 +92,22 @@ function AddContact({ setAddStatus }) {
     }
 
     setAlert("");
-
-    const randomID = Math.floor(Math.random() * 10000);
+    //validation...................................................................
 
     if (!contact.id) {
-      const newContact = { ...contact, id: `${randomID}` };
-      //new...................................
+      const newContact = {
+        ...contact,
+        id: `${makeRandomID()}`,
+        creationTime: creationTime(),
+      };
       dispatch({ type: "ADD_CONTACT", payload: newContact });
-      //new...................................
     } else {
-      const editedContact = { ...contact, id: state.editedContact.id };
+      const editedContact = { ...contact };
       dispatch({ type: "ADD_CONTACT", payload: editedContact });
       setAddStatus((addStatus) => !addStatus);
     }
-    //new...................................
     dispatch({ type: "SAVE_CONTACT" });
-    //new...................................
-    showSnackBar();
-
+    showSnackBar("addToast");
     setContact({
       id: "",
       fullName: "",

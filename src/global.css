@@ -6,6 +6,7 @@
 
 body {
   margin: auto;
+  /* min-width: 660px; */
   max-width: 1000px;
   min-height: 100vh;
   padding: 10px;

@@ -7,17 +7,16 @@ import ContactList from "./ContactList";
 import styles from "./ContactBar.module.css";
 
 import deleteIcon from "../assets/delete-svgrepo-com2.svg";
+import { showSnackBar } from "../helpers/helpers";
 
 function ContactBar() {
-  //new.........................................................
   const [state, dispatch] = useContacts();
   const [displayedContacts, setDisplayedContacts] = useState([]);
-  const selectedItems = useRef([]);
-  //............................................................
   const [addStatus, setAddStatus] = useState(false);
   const [selectState, setSelectState] = useState(false);
   const [multiDelCheck, setMultiDelCheck] = useState(false);
   const [modalDisplay, setModalDisplay] = useState("");
+  const selectedItems = useRef([]);
 
   const addHandler = () => {
     setAddStatus((addStatus) => !addStatus);
@@ -25,12 +24,10 @@ function ContactBar() {
 
   const searchHandler = (event) => {
     const value = event.target.value;
-
     const searchResult = state.contacts.filter(
       (contact) =>
         contact.fullName.includes(value) || contact.email.includes(value),
     );
-
     setDisplayedContacts(searchResult);
   };
 
@@ -42,12 +39,12 @@ function ContactBar() {
   };
 
   const multiDeleteHandler = () => {
-    //new..............
     dispatch({ type: "REMOVE_CONTACT" });
     dispatch({ type: "SAVE_CONTACT" });
-    //.................
     setModalDisplay("none");
     setMultiDelCheck(false);
+    showSnackBar("multiDeleteToast");
+    setSelectState(false);
   };
 
   const selectBtnHandler = () => {
@@ -63,11 +60,10 @@ function ContactBar() {
         <>
           <div className={styles.container}>
             <div className={styles.searchContainer}>
-              {/* <p>search in contacts :</p> */}
               <input
                 type="text"
                 name="search"
-                placeholder="Search Contact"
+                placeholder="search in contacts"
                 onChange={searchHandler}
               />
             </div>

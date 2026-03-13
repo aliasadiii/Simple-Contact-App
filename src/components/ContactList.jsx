@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useContacts } from "../context/ContactsContext";
 
+import {
+  formatText,
+  showSnackBar,
+  sortByDate,
+  sortByName,
+} from "../helpers/helpers";
+
 import ContactItem from "./ContactItem";
 import ModalWarning from "./ModalWarning";
 import SnackBar from "./SnackBar";
@@ -19,36 +26,21 @@ function ContactList({
   displayedContacts,
   setDisplayedContacts,
 }) {
-  //new.........................................................
-
   const [state, dispatch] = useContacts();
-  //new.........................................................
-  useEffect(() => {
-    setDisplayedContacts(state.contacts);
-  }, [state.contacts]);
-  //new.........................................................
 
-  const showSnackBar = () => {
-    const addToast = document.getElementById("deleteToast");
-    addToast.classList.add("show");
-    setTimeout(() => {
-      addToast.classList.remove("show");
-    }, 3000);
-  };
+  useEffect(() => {
+    setDisplayedContacts(sortByDate(state.contacts, "SortbyNewest"));
+  }, [state.contacts]);
 
   const singleDeleteHandler = () => {
-    //new........................
     dispatch({ type: "REMOVE_CONTACT" });
     dispatch({ type: "SAVE_CONTACT" });
-    //...........................
     setModalDisplay("none");
-    showSnackBar();
+    showSnackBar("deleteToast");
   };
 
   const modalHandler = (id) => {
-    //new...............
     dispatch({ type: "SELECT_CONTACTS", payload: [id] });
-    //..................
     setModalDisplay("flex");
     setMultiDelCheck(false);
   };
@@ -56,9 +48,7 @@ function ContactList({
   const selectHandler = (event) => {
     const targetId = event.target.value;
     if (event.target.checked) {
-      //new....................
       selectedItems.current = [...selectedItems.current, targetId];
-      //.......................
     } else {
       selectedItems.current = selectedItems.current.filter(
         (id) => id != targetId,
@@ -67,9 +57,26 @@ function ContactList({
     dispatch({ type: "SELECT_CONTACTS", payload: selectedItems.current });
   };
 
+  const sortHandler = (event) => {
+    const sortingOption = formatText(event.target.value);
+    if (sortingOption === "SortbyAtoZ")
+      setDisplayedContacts(sortByName(displayedContacts));
+    else if (sortingOption === "SortbyNewest")
+      setDisplayedContacts(sortByDate(displayedContacts, sortingOption));
+    else if (sortingOption === "SortbyOldest")
+      setDisplayedContacts(sortByDate(displayedContacts, sortingOption));
+  };
+
   return (
     <div className={styles.container}>
-      <h2>Contact List</h2>
+      <div className={styles.header}>
+        <h2>Contact List</h2>
+        <select className={styles.sortSelection} onChange={sortHandler}>
+          <option>Sort by Newest</option>
+          <option>Sort by Oldest</option>
+          <option>Sort by A to Z</option>
+        </select>
+      </div>
       <ModalWarning
         id="modalBox"
         singleDeleteHandler={singleDeleteHandler}
@@ -100,7 +107,6 @@ function ContactList({
           )}
         </ul>
       ) : (
-        // {searchRes.length ?}
         <p className={styles.message}>No Contacts Yet!</p>
       )}
     </div>

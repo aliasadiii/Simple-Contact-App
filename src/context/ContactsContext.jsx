@@ -34,11 +34,6 @@ const reducer = (state, action) => {
     case "EDIT_CONTACT":
       state.editedContact = action.payload;
       return { ...state };
-    // case "SEARCH_CONTACTS":
-    //   if (action.payload.length){
-
-    //   }
-    // return;
     default:
       throw new Error("Invalid Action !");
   }

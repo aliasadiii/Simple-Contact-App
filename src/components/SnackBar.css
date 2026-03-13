@@ -22,6 +22,12 @@
     background-color: #F44336;
 }
 
+.multiDeleteToast{
+    background-color: #F44336;
+    width: 310px;
+    left: calc(100% - 330px);
+}
+
 .closeBtn{
     position: absolute;
     top: 0;
