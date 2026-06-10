@@ -12,30 +12,22 @@ const creationTime = () => {
 };
 
 const sortByName = (displayedContacts) => {
-  const newDisplayed = [];
-  const fullNames = displayedContacts.map((contact) => contact.fullName).sort();
-  fullNames.forEach((name) => {
-    newDisplayed.push(
-      displayedContacts.find((contact) => contact.fullName === name),
-    );
+  if (!Array.isArray(displayedContacts)) return [];
+  return [...displayedContacts].sort((a, b) => {
+    const nameA = (a?.fullName || "").toString();
+    const nameB = (b?.fullName || "").toString();
+    return nameA.localeCompare(nameB, undefined, { sensitivity: "base" });
   });
-  return newDisplayed;
 };
 
 const sortByDate = (displayedContacts, dateFormat) => {
-  const sortedContacts = [];
-  const creationTimes = displayedContacts
-    .map((contact) => contact.creationTime)
-    .sort((a, b) => {
-      if (dateFormat === "SortbyNewest") return b - a;
-      else return a - b;
-    });
-  creationTimes.forEach((date) =>
-    sortedContacts.push(
-      displayedContacts.find((contact) => contact.creationTime === date),
-    ),
-  );
-  return sortedContacts;
+  if (!Array.isArray(displayedContacts)) return [];
+  const descending = dateFormat === "SortbyNewest";
+  return [...displayedContacts].sort((a, b) => {
+    const ta = Number(a?.creationTime) || 0;
+    const tb = Number(b?.creationTime) || 0;
+    return descending ? tb - ta : ta - tb;
+  });
 };
 
 const showSnackBar = (item) => {

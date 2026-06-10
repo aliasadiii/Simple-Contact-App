@@ -55,3 +55,34 @@
     cursor: pointer;
 }
 
+@media (max-width: 600px) {
+    .container{
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .searchContainer{
+        width: 100%;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .toolsContainer{
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .toolsContainer button{
+        padding: 6px 8px;
+        height: 34px;
+        font-size: 0.95rem;
+    }
+
+    .searchContainer input{
+        width: 100%;
+    }
+}
+

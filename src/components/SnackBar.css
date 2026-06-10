@@ -48,3 +48,18 @@
   from {top: 30px; opacity: 1;}
   to {top: 0; opacity: 0;}
 }
+
+@media (max-width: 600px) {
+    .toast{
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        top: 12px;
+    }
+
+    .multiDeleteToast{
+        width: calc(100% - 40px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

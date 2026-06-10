@@ -57,3 +57,34 @@
 .noBtn{
     background-color: #75dcdc;
 }
+
+@media (max-width: 600px) {
+    .modalBox{
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .modalContent{
+        margin: 0;
+        width: calc(100% - 40px);
+        max-height: calc(100vh - 48px); 
+        height: fit-content;
+        padding: 12px;
+    }
+
+    .modalInfo{
+        padding: 0 20px 20px;
+    }
+
+    .modalBtn{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .modalBtn button{
+        width: 100%;
+    }
+}

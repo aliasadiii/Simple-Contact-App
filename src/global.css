@@ -20,6 +20,26 @@ body {
   box-sizing: border-box;
 }
 
+/* Small screen tweaks */
+@media (max-width: 600px) {
+  :root {
+    /* slightly smaller base font for narrow screens */
+    font-size: 14px;
+  }
+
+  body {
+    max-width: 100%;
+    padding: 8px;
+    background-color: #242424;
+  }
+
+  /* make all images and svgs more flexible by default */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 
 
 
